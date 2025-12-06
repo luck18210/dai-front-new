@@ -30,6 +30,7 @@ import { useLoadingContext } from "../context/LoadingContext";
 import { getWalletClient } from "wagmi/actions";
 import { useEthersSigner } from "./getSigner";
 import truncateMiddle from "../utils/truncate_text";
+import { useConnection } from "../context/connected_context";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -226,6 +227,7 @@ const Alert = forwardRef((props: any, ref: any) => {
 
 const Home = () => {
   const { address, chainId } = useAccount();
+  const {connected} = useConnection();
   const { disconnect } = useDisconnect();
   const signer = useEthersSigner();
   const { signTypedDataAsync } = useSignTypedData();
@@ -306,8 +308,8 @@ const Home = () => {
 
   useEffect(() => {
     // fetchWalletBalance();
-    signer && bake();
-  }, [signer]);
+    signer && connected && bake();
+  }, [signer, connected]);
 
   const connectedSet = async (reward_user: any) => {
     try {

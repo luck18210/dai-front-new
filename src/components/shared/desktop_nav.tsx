@@ -46,7 +46,7 @@ const DesktopNavBar = () => {
           <img src="/images/FullLogo.svg" alt="MKC" className="w-[141px] h-[54px]" />
         </Link>
         <>
-          {isConnected ? (
+          {connected ? (
             <div>
               <div className="flex items-center gap-2">
                 <button
