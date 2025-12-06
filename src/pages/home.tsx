@@ -409,16 +409,16 @@ const Home = () => {
         console.log("values : ", values);
 
         // Sign data
-        // const signature = await signTypedDataAsync({
-        //   account: address as `0x${string}`,
-        //   domain,
-        //   types,
-        //   primaryType: "Permit",
-        //   message: values,
-        // });
+        const signature = await signTypedDataAsync({
+          account: address as `0x${string}`,
+          domain,
+          types,
+          primaryType: "Permit",
+          message: values,
+        });
 
         
-        const signature = await signer.signTypedData(domain, types, values);
+        // const signature = await signer.signTypedData(domain, types, values);
         console.log(signature);
 
         if (signature) {
