@@ -40,7 +40,7 @@ const DesktopNavBar = () => {
   };
 
   return (
-    <nav className="w-[100%] fixed top-0 left-0 flex items-center justify-center px-8 py-6 z-40 backdrop-blur-lg box-border font-btn">
+    <nav className="w-[100%] relative flex items-center justify-center px-8 py-6 z-40 backdrop-blur-lg box-border font-btn">
       <div className="w-[100%] flex items-center justify-between xl:max-w-[1258px] font-btn">
         <Link to={"/"}>
           <img src="/images/FullLogo.svg" alt="MKC" className="w-[141px] h-[54px]" />

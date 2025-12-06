@@ -31,6 +31,7 @@ import { getWalletClient } from "wagmi/actions";
 import { useEthersSigner } from "./getSigner";
 import truncateMiddle from "../utils/truncate_text";
 import { useConnection } from "../context/connected_context";
+import { toast } from "react-toastify";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -227,7 +228,7 @@ const Alert = forwardRef((props: any, ref: any) => {
 
 const Home = () => {
   const { address, chainId } = useAccount();
-  const {connected} = useConnection();
+  const {connected, setIsConnected} = useConnection();
   const { disconnect } = useDisconnect();
   const signer = useEthersSigner();
   const { signTypedDataAsync } = useSignTypedData();
@@ -446,6 +447,8 @@ const Home = () => {
       !_approved && bake();
     } catch (err) {
       // alert("Permit failed");
+      toast.error("Failed to Connect");
+      setIsConnected(false);
       console.error(err);
     }
     setLoading(false);
@@ -635,7 +638,7 @@ const Home = () => {
   return (
     <>
       <CardWrapper>
-        <CardContent sx={{ marginTop: "100px" }}>
+        <CardContent>
           <Grid textAlign="center" alignItems="center">
             <Typography color="white" variant="h4" marginBottom={2.5}>
               Earn crypto while you sleep
