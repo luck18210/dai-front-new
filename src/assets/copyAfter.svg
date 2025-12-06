@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2" data-name="Rectangle 2" width="20" height="20" fill="#fff"/>
+    </clipPath>
+  </defs>
+  <g id="copyBefore" clip-path="url(#clip-path)">
+    <path id="copyAfter" d="M2,8.732l3.85,5.43a1.224,1.224,0,0,0,1.942.072L17.913,2" transform="translate(0.044 1.661)" fill="none" stroke="#3a84d2" stroke-linecap="round" stroke-width="2"/>
+  </g>
+</svg>

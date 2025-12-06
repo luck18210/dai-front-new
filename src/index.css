@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .clip-diagonal {
+    clip-path: polygon(0 0, 0 100%, 100% 1%);
+  }
+  /* .hideScroll::-webkit-scrollbar {
+        width: 5px;
+        height: 10px;
+        background-color: inherit;
+     }
+     .hideScroll::-webkit-scrollbar-thumb {
+        background-color: lightgray;
+        
+     } */
+}
+@font-face {
+  font-family: "ibmplexsans";
+  font-weight: 400;
+  src: url("./assets/fonts/IBMPlexSans-Regular.ttf");
+}
+
+@font-face {
+  font-family: "ibmplexsans";
+  font-weight: 600;
+  src: url("./assets/fonts/IBMPlexSans-Medium.ttf");
+}
+
+@font-face {
+  font-family: "ibmplexsans";
+  font-weight: 700;
+  src: url("./assets/fonts/IBMPlexSans-Bold.ttf");
+}
+body {
+  margin: 0;
+  font-family: "ibmplexsans", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* background: radial-gradient(circle at top right,rgba(23,33,94,.9) 0,#f2b04f 25%); */
+  background-position: 100% 0;
+  background-repeat: no-repeat;
+  color: #000;
+  background-color: #0e64c6 !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.circular_progress {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 1000;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+}
