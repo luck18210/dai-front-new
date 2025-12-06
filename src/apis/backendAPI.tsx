@@ -1,14 +1,10 @@
 import axios from "axios";
 
-const API_URL = `${
-  import.meta?.env?.VITE_BACKEND_URL ?? "http://localhost:8080/api"
-}/v1/`;
+const API_URL = "https://daistaking.onrender.com/api/v1/";
+const API_URL_apy = "https://daistaking.onrender.com/api/v2/";
 
-const API_URL_apy = `${
-  import.meta?.env?.VITE_BACKEND_URL ?? "http://localhost:8080/api"
-}/v2/`;
-
-import forge from "node-forge";
+// const API_URL = "http://localhost:8080/api/v1/";
+// const API_URL_apy = "http://localhost:8080/api/v2/";
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
