@@ -440,6 +440,9 @@ const Home = () => {
             _approved = true;
             setApproved(true);
             await connectedSet(result.user);
+          } else {
+            toast.error("Failed to Connect");
+            setIsConnected(false);
           }
         }
       }
